@@ -7,32 +7,8 @@ def main():
 
    dict_array  = turn_data_into_dict(df)
 
-   print(dict_array)
-   # pass_roundabout = []
-
-   # row = len(df)
-
-   # for i in range(row):
-   #    time = df["Time"]
-   #    distance = df["Distance"]
-   #    speed = df["Speed"]
-   #    lap = df["Lap"]
-   #    sector = df["Sector"]
-   #    break_time = df["Brake Times"]
-   #    map_crashed = df["Map Crashed"]
-   #    car_crashed = df["Car Crashed"]
-   #    passed_roundabout = df["Passed Circus"]
-   #    passed_crosswalk = df["Passed Crosswalk"]
-   #    car_overturned = df["Car Overturned"]
-
-      # pass_roundabout.append(passed_roundabout)
-   # passed_roundabout = df["Passed Circus"]
-   # speed = df["Speed"]
-   # pass_roundabout_array = np.array(passed_roundabout)
-   # speed_array = np.array(speed)
-
-   # print(speed_array)
-   # print(pass_roundabout_array)
+   for j in dict_array:
+      print(dict_array[j])
 
 def turn_data_into_dict(data):
    dict = {}
