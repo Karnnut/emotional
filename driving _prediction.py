@@ -1,42 +1,38 @@
-import pandas as pd
-import numpy as np
+# import pandas as pd
+# import numpy as np
 
 def main():
-   df = pd.read_csv("data01.csv")
-   # print(df)
+   # df = pd.read_csv("data01.csv")
+   # # print(df)
 
-   average_speed_out = sum_speed(df)
+   # average_speed_out = sum_speed(df)
 
-   average_speed_out1 = average_speed_out[0] / average_speed_out[1]
+   # average_speed_out1 = average_speed_out[0] / average_speed_out[1]
 
-   average_speed_all = sum(df["Speed"]) / len(df["Speed"])
+   # average_speed_all = sum(df["Speed"]) / len(df["Speed"])
 
-   average_speed_cross = sum_speed_cross(df)
+   # average_speed_cross = sum_speed_cross(df)
 
-   average_speed_cross1 = average_speed_cross[0] / average_speed_cross[1]
+   # average_speed_cross1 = average_speed_cross[0] / average_speed_cross[1]
 
-   last_row = df.iloc[-1]
+   # last_row = df.iloc[-1]
 
-   final_time = last_row["Time"]
+   # final_time = last_row["Time"]
 
-   print(final_time)
+   # print(final_time)
 
-   print(average_speed_all)
+   # print(average_speed_all)
 
-   print(average_speed_out1)
+   # print(average_speed_out1)
 
-   print(average_speed_cross1)
+   # print(average_speed_cross1)
 
 
    #result = result_and(final_time, average_speed_out1, average_speed_cross1)
-   result = result_and(300, 29, 24)
-
+   result = result_and(120, 40, 40)
    print("result", result)
-
    pesonality = personality_detection(result)
-
    print(pesonality)
-
 # ---------------------------------------------------------------- Start Results --------------------------------
 
 def personality_detection(data):
@@ -49,7 +45,25 @@ def personality_detection(data):
 
    return result
 
+# ---------------------------------------------------------------- Get a Slope ----------------------------------------------------------------
 
+def getSlope(x1, y1, x2, y2):
+    #Avoid zero division error of vertical line for shouldered trapmf
+    try:
+        slope = (y2 - y1) / (x2 - x1)
+    except ZeroDivisionError:
+        slope = 0
+    return slope
+
+def getYIntercept(x1, y1, x2, y2):
+    m = getSlope(x1, y1, x2, y2)
+    if y1 < y2:
+        y = y2
+        x = x2
+    else:
+        y = y1
+        x = x1
+    return y - m * x
 
 def result_and(final_time, average_speed_out1, average_speed_cross1):
    sum_ = []
@@ -137,6 +151,8 @@ def result_and(final_time, average_speed_out1, average_speed_cross1):
    print("Data26", data26)
    data27 = [time_mid(final_time) , speed_round_fast(average_speed_out1) , speed_cross_fast(average_speed_cross1)]
    sum_.append(min(data27))
+
+   print(sum_)
    print("Data27", data27)
    result = max(sum_)
    # result = data1 or data2 or data3 or data4 or data5 or data6 or data7 or data8 or data9 or data10 or data11 or data12 or data13 or data14 or data15 or data16 or data17 or data18 or data19 or data20 or data21 or data22 or data23 or data24 or data25 or data26 or data27
@@ -147,185 +163,56 @@ def result_and(final_time, average_speed_out1, average_speed_cross1):
    
 
 def time_low(data):
-   x = 120
-   y = 1
-   x1 = 300
-   y1 = 0
-   m = (y - y1) / (x - x1)
-
-   result = (m * (data - x1)) + y1
-   if (0 <= data <= 120):
-      result = 1
-      return result
-   elif (data >= 300):
-      result = 0
-      return result
-   
-   return abs(result)
+   points = [-1, 0, 120, 300]
+   result = trapmf(data, points)
+   return result
 
 
 def time_mid(data):
-   if (data <= 120) or (data >= 480):
-      result = 0
-      return result
-   
-   elif (120 <= data <= 300):
-      x = 300
-      y = 1
-      x1 = 120
-      y1 = 0
-      m = (y - y1) / (x - x1)
-      result = (m * (data - x1)) + y1
-      return abs(result)
-
-   elif (300 <= data <= 480):
-      x = 300
-      y = 1
-      x1 = 480
-      y1 = 0
-      m = (y - y1) / (x - x1)
-      result = (m * (data - x1)) + y1
-      return abs(result)
+   points = [120, 300, 480]
+   result = trimf(data, points);
+   return result
       
 def time_high(data):
-
-   x = 480
-   y = 1
-   x1 = 300
-   y1 = 0
-   m = (y - y1) / (x - x1)
-   result  = (m * (data - x1)) + y1
-
-   if (300 >= data):
-      result = 0
-      return result
-   elif (data >= 480):
-      result = 1 
-      return result
-   
-   return abs(result)
+   points = [300, 500, 1000]
+   result = trimf(data, points);
+   return result
 
 # ---------------------------------------------------------------- Start Speed_roundabout ----------------------------------------------------------------
 
 def speed_round_slow(data):
-   x = 0
-   y = 1
-   x1 = 25
-   y1 = 0
-   m = (y - y1) / (x - x1)
-   result  = (m * (data - x1)) + y1
-
-   if (data >= 35):
-      result = 0
-      return result
-   else:
-      return abs(result)
+   points = [-1000, 0, 25]
+   result = trimf(data, points);
+   return result
 
 def speed_round_mid(data):
-
-   if (data <= 15) or (data >= 35):
-      result = 0
-      return result
-   
-   elif (15 <= data <= 25):
-      x = 25
-      y = 1
-      x1 = 120
-      y1 = 0
-      m = (y - y1) / (x - x1)
-      result = (m * (data - x1)) + y1
-      return abs(result)
-
-   elif (25 <= data <= 35):
-      x = 25
-      y = 1
-      x1 = 35
-      y1 = 0
-      m = (y - y1) / (x - x1)
-      result = (m * (data - x1)) + y1
-      return abs(result)
+   points = [15, 25, 35]
+   result = trimf(data, points);
+   return result
 
 
 
 def speed_round_fast(data):
-   x = 50
-   y = 1
-   x1 = 25
-   y1 = 0
-   m = (y - y1) / (x - x1)
-   result  = (m * (data - x1)) + y1
-   if (data <= 25):
-      result = 0
-      return result
-   
-   return abs(result)
-
+   points = [25, 50, 1000]
+   result = trimf(data, points);
+   return result
 
 # ---------------------------------------------------------------- Start Speed Cross----------------------------------------------------------------
 
 def speed_cross_slow(data):
-
-   x = 10
-   y = 1
-   x1 = 25
-   y1 = 0
-   m = (y - y1) / (x - x1)
-   result  = (m * (data - x1)) + y1
-   if (data <= 10):
-      result = 1
-      return abs(result)
-   elif (data >= 25):
-      result = 0
-      return 0
-   else:
-      return abs(result)
-      
+   points = [-17, -2, 10, 25]
+   result = trapmf(data, points)
+   return result      
 
 def speed_cross_mid(data):
-
-   if (data == 25):
-      result = 1
-      return result
-   if (15 <=  data <= 25):
-      x = 25
-      y = 1
-      x1 = 15
-      y1 = 0
-      m = (y - y1) / (x - x1)
-      result  = (m * (data - x1)) + y1
-      return abs(result)
-
-   elif (25 <= data <= 35):
-      x = 25
-      y = 1
-      x1 = 35
-      y1 = 0
-      m = (y - y1) / (x - x1)
-      result  = (m * (data - x1)) + y1
-      return abs(result)
-
-
-   else:
-      result= 0
-      return result
-
+   points = [15, 25, 35]
+   result = trimf(data, points)
+   return result
 
 def speed_cross_fast(data):
-   x = 47
-   y = 1
-   x1 = 25
-   y1 = 0
-   m = (y - y1) / (x - x1)
-   result  = (m * (data - x1)) + y1
-   if (data <= 25):
-      result = 0
-      return result
-   elif (data >= 47):
-      result = 1
-      return result
-   else:
-      return result
-
+   points = [25, 47, 145, 905]
+   result = trapmf(data, points)
+   return result
 
 def sum_speed(df):
    sum_speed = 0
@@ -340,7 +227,6 @@ def sum_speed(df):
    
    return sum_speed, count
 
-
 def sum_speed_cross(df):
    sum_speed = 0
    count = 0
@@ -354,7 +240,41 @@ def sum_speed_cross(df):
    
    return sum_speed, count
 
+# ---------------------------------------------------------------- Tramf ----------------------------------------------------------------
 
+def trapmf(x, points):
+    pointA = points[0]
+    pointB = points[1]
+    pointC = points[2]
+    print("point C", pointC)
+    pointD = points[3]
+    slopeAB = getSlope(pointA, 0, pointB, 1)
+    slopeCD = getSlope(pointC, 1, pointD, 0)
+    yInterceptAB = getYIntercept(pointA, 0, pointB, 1)
+    yInterceptCD = getYIntercept(pointC, 1, pointD, 0)
+    result = 0
+    if x > pointA and x < pointB:
+        result = slopeAB * x + yInterceptAB
+    elif x >= pointB and x <= pointC:
+        result = 1
+    elif x > pointC and x < pointD:
+        result = slopeCD * x + yInterceptCD
+    return result
+
+# ---------------------------------------------------------------- Trimf ----------------------------------------------------------------
+
+def trimf(x, points):
+    pointA = points[0]
+    pointB = points[1]
+    pointC = points[2]
+    slopeAB = getSlope(pointA, 0, pointB, 1)
+    slopeBC = getSlope(pointB, 1, pointC, 0)
+    result = 0
+    if x >= pointA and x <= pointB:
+        result = slopeAB * x + getYIntercept(pointA, 0, pointB, 1)
+    elif x >= pointB and x <= pointC:
+        result = slopeBC * x + getYIntercept(pointB, 1, pointC, 0)
+    return result
 
 if __name__ == "__main__":
    main()
