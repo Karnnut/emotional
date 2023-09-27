@@ -1,48 +1,48 @@
 # import pandas as pd
-# import numpy as np
+# print(pd.__version__)
 
 def main():
-   # df = pd.read_csv("data01.csv")
-   # # print(df)
+   df = pd.read_csv("data.csv")
 
-   # average_speed_out = sum_speed(df)
+   # Calculate Speed out the roundabout
+   average_speed_out = sum_speed(df)
+   average_speed_out1 = average_speed_out[0] / average_speed_out[1]
 
-   # average_speed_out1 = average_speed_out[0] / average_speed_out[1]
+   # Calculate Speed all
+   average_speed_all = sum(df["Speed"]) / len(df["Speed"])
 
-   # average_speed_all = sum(df["Speed"]) / len(df["Speed"])
+   # Calculate Speed before enter crosswalk
+   average_speed_cross = sum_speed_cross(df)
+   average_speed_cross1 = average_speed_cross[0] / average_speed_cross[1]
 
-   # average_speed_cross = sum_speed_cross(df)
+   #Calculate a final time
+   last_row = df.iloc[-1]
+   final_time = last_row["Time"]
 
-   # average_speed_cross1 = average_speed_cross[0] / average_speed_cross[1]
+   print("Final Time:", final_time)
 
-   # last_row = df.iloc[-1]
+   print("Average Speed All:",average_speed_all)
 
-   # final_time = last_row["Time"]
+   print("Average Speed Out:",average_speed_out1)
 
-   # print(final_time)
+   print("Average Speed Cross:",average_speed_cross1)
 
-   # print(average_speed_all)
-
-   # print(average_speed_out1)
-
-   # print(average_speed_cross1)
-
-   #result = result_and(final_time, average_speed_out1, average_speed_cross1)
-   result = result_and(250, 30, 25)
+   result = result_and(final_time, average_speed_out1, average_speed_cross1)
+   # result = result_and(156, 32, 29)
    print("result", result)
-   # pesonality = personality_detection(result)
-   # print(pesonality)
+   pesonality = personality_detection(result)
+   print(pesonality)
 # ---------------------------------------------------------------- Start Results --------------------------------
 
-# def personality_detection(data):
-#    if (data <= 0.43):
-#       result = "Aggressive"
-#    elif (data  >= 0.67):
-#       result= "Calmly"
-#    else:
-#       result = "Cautious"
+def personality_detection(data):
+   if data <= 0.43:
+      result = "Aggressive"
+   elif data >= 0.67:
+      result = "Calmly"
+   else:
+      result = "Cautious"
 
-#    return result
+   return result
 
 # ---------------------------------------------------------------- Get a Slope ----------------------------------------------------------------
 
@@ -69,151 +69,193 @@ def result_and(final_time, average_speed_out1, average_speed_cross1):
    print(final_time)
    print(average_speed_out1)
    print(average_speed_cross1)
+   data1 = [time_low(final_time), speed_round_slow(average_speed_out1), speed_cross_slow(average_speed_cross1)]
+   sum_.append(min(data1))
+   # print("Data1", data1)
+   data2 = [time_low(final_time) , speed_round_slow(average_speed_out1) , speed_cross_mid(average_speed_cross1)]
+   sum_.append(min(data2))
+   # print("Data2", data2)
+   data3 = [time_low(final_time) , speed_round_slow(average_speed_out1) , speed_cross_fast(average_speed_cross1)]
+   sum_.append(min(data3))
+   # print("Data3", data3)
+   data4 = [time_low(final_time) , speed_round_mid(average_speed_out1) , speed_cross_slow(average_speed_cross1)]
+   sum_.append(min(data4))
+   # print("Data4", data4)
+   data5 = [time_low(final_time) , speed_round_mid(average_speed_out1) , speed_cross_mid(average_speed_cross1)]
+   sum_.append(min(data5))
+   # print("Data5", data5)
+   data6 = [time_low(final_time) , speed_round_mid(average_speed_out1) , speed_cross_fast(average_speed_cross1)]
+   sum_.append(min(data6))
+   # print("Data6", data6)
+   data7 = [time_low(final_time) , speed_round_fast(average_speed_out1) , speed_cross_slow(average_speed_cross1)]
+   sum_.append(min(data7))
+   # print("Data7", data7)
+   data8 = [time_low(final_time) , speed_round_fast(average_speed_out1) , speed_cross_mid(average_speed_cross1)]
+   sum_.append(min(data8))
+   #print("Data8", min(data8))
+   data9 = [time_low(final_time) , speed_round_fast(average_speed_out1) , speed_cross_fast(average_speed_cross1)]
+   sum_.append(min(data9))
+   #print("Data9", data9)
 
-   # data1 = [time_low(final_time), speed_round_slow(average_speed_out1), speed_cross_slow(average_speed_cross1)]
+   data10 = [time_mid(final_time) , speed_round_slow(average_speed_out1) , speed_cross_slow(average_speed_cross1)]
+   sum_.append(min(data10))
+   #print("Data10", data10)
+   data11 = [time_mid(final_time) , speed_round_slow(average_speed_out1) , speed_cross_mid(average_speed_cross1)]
+   #print(time_mid(final_time), speed_round_slow(average_speed_out1), speed_cross_mid(average_speed_cross1))
+   sum_.append(min(data11))
+   #print("Data11", data11)
+   data12 = [time_mid(final_time) , speed_round_slow(average_speed_out1) , speed_cross_fast(average_speed_cross1)]
+   sum_.append(min(data12))
+   #print("Data12", data12)
+   data13 = [time_mid(final_time) , speed_round_mid(average_speed_out1) , speed_cross_slow(average_speed_cross1)]
+   sum_.append(min(data13))
+   #print("Data13", data13)
+   data14 = [time_mid(final_time) , speed_round_mid(average_speed_out1) , speed_cross_mid(average_speed_cross1)]
+   sum_.append(min(data14))
+   #print("Data14", data14)
+   data15 = [time_mid(final_time) , speed_round_mid(average_speed_out1) , speed_cross_fast(average_speed_cross1)]
+   sum_.append(min(data15))
+   #print("Data15", data15)
+   data16 = [time_mid(final_time) , speed_round_fast(average_speed_out1) , speed_cross_slow(average_speed_cross1)]
+   sum_.append(min(data16))
+   #print("Data16", data16)
+   data17 = [time_mid(final_time) , speed_round_fast(average_speed_out1) , speed_cross_mid(average_speed_cross1)]
+   sum_.append(min(data17))
+   #print("Data17", data17)
+   data18 = [time_mid(final_time) , speed_round_fast(average_speed_out1) , speed_cross_fast(average_speed_cross1)]
+   sum_.append(min(data18))
+   #print("Data18", data18)
+
+   data19 = [time_mid(final_time) , speed_round_slow(average_speed_out1) , speed_cross_slow(average_speed_cross1)]
+   sum_.append(min(data19))
+   #print("Data19", data19)
+   data20 = [time_mid(final_time) , speed_round_slow(average_speed_out1) , speed_cross_mid(average_speed_cross1)]
+   sum_.append(min(data20))
+   #print("Data20", data20)
+   data21 = [time_mid(final_time) , speed_round_slow(average_speed_out1) , speed_cross_fast(average_speed_cross1)]
+   sum_.append(min(data21))
+   #print("Data21", data21)
+   data22 = [time_mid(final_time) , speed_round_mid(average_speed_out1) , speed_cross_slow(average_speed_cross1)]
+   sum_.append(min(data22))
+   #print("Data22", data22)
+   data23 = [time_mid(final_time) , speed_round_mid(average_speed_out1) , speed_cross_mid(average_speed_cross1)]
+   sum_.append(min(data23))
+   #print("Data23", data23)
+   data24 = [time_mid(final_time) , speed_round_mid(average_speed_out1) , speed_cross_fast(average_speed_cross1)]
+   sum_.append(min(data24))
+   #print("Data24", data24)
+   data25 = [time_mid(final_time) , speed_round_fast(average_speed_out1) , speed_cross_slow(average_speed_cross1)]
+   sum_.append(min(data25))
+   #print("Data25", data25)
+   data26 = [time_mid(final_time) , speed_round_fast(average_speed_out1) , speed_cross_mid(average_speed_cross1)]
+   sum_.append(min(data26))
+   #print("Data26", data26)
+   data27 = [time_mid(final_time) , speed_round_fast(average_speed_out1) , speed_cross_fast(average_speed_cross1)]
+   sum_.append(min(data27))
+
+   # data1 = [time_low(final_time), speed_round_slow(average_speed_out1)]
    # sum_.append(min(data1))
    # print("Data1", data1)
-   # data2 = [time_low(final_time) , speed_round_slow(average_speed_out1) , speed_cross_mid(average_speed_cross1)]
+   # data2 = [time_low(final_time), speed_round_mid(average_speed_out1)]
    # sum_.append(min(data2))
    # print("Data2", data2)
-   # data3 = [time_low(final_time) , speed_round_slow(average_speed_out1) , speed_cross_fast(average_speed_cross1)]
+   # data3 = [time_low(final_time), speed_round_fast(average_speed_out1)]
    # sum_.append(min(data3))
    # print("Data3", data3)
-   # data4 = [time_low(final_time) , speed_round_mid(average_speed_out1) , speed_cross_slow(average_speed_cross1)]
+
+   # data4 = [time_mid(final_time), speed_round_slow(average_speed_out1)]
    # sum_.append(min(data4))
    # print("Data4", data4)
-   # data5 = [time_low(final_time) , speed_round_mid(average_speed_out1) , speed_cross_mid(average_speed_cross1)]
+   # data5 = [time_mid(final_time), speed_round_mid(average_speed_out1)]
    # sum_.append(min(data5))
    # print("Data5", data5)
-   # data6 = [time_low(final_time) , speed_round_mid(average_speed_out1) , speed_cross_fast(average_speed_cross1)]
+   # data6 = [time_mid(final_time), speed_round_fast(average_speed_out1)]
    # sum_.append(min(data6))
    # print("Data6", data6)
-   # data7 = [time_low(final_time) , speed_round_fast(average_speed_out1) , speed_cross_slow(average_speed_cross1)]
+
+   # data7 = [time_high(final_time), speed_round_slow(average_speed_out1)]
    # sum_.append(min(data7))
    # print("Data7", data7)
-   # data8 = [time_low(final_time) , speed_round_fast(average_speed_out1) , speed_cross_mid(average_speed_cross1)]
+   # data8 = [time_high(final_time), speed_round_mid(average_speed_out1)]
    # sum_.append(min(data8))
-   # print("Data8", min(data8))
-   # data9 = [time_low(final_time) , speed_round_fast(average_speed_out1) , speed_cross_fast(average_speed_cross1)]
+   # print("Data8", data8)
+   # data9 = [time_high(final_time), speed_round_fast(average_speed_out1)]
    # sum_.append(min(data9))
    # print("Data9", data9)
-   # data10 = [time_mid(final_time) , speed_round_slow(average_speed_out1) , speed_cross_slow(average_speed_cross1)]
-   # sum_.append(min(data10))
-   # print("Data10", data10)
-   # data11 = [time_mid(final_time) , speed_round_slow(average_speed_out1) , speed_cross_mid(average_speed_cross1)]
-   # print(time_mid(final_time), speed_round_slow(average_speed_out1), speed_cross_mid(average_speed_cross1))
-   # sum_.append(min(data11))
-   # print("Data11", data11)
-   # data12 = [time_mid(final_time) , speed_round_slow(average_speed_out1) , speed_cross_fast(average_speed_cross1)]
-   # sum_.append(min(data12))
-   # print("Data12", data12)
-   # data13 = [time_mid(final_time) , speed_round_mid(average_speed_out1) , speed_cross_slow(average_speed_cross1)]
-   # sum_.append(min(data13))
-   # print("Data13", data13)
-   # data14 = [time_mid(final_time) , speed_round_mid(average_speed_out1) , speed_cross_mid(average_speed_cross1)]
-   # sum_.append(min(data14))
-   # print("Data14", data14)
-   # data15 = [time_mid(final_time) , speed_round_mid(average_speed_out1) , speed_cross_fast(average_speed_cross1)]
-   # sum_.append(min(data15))
-   # print("Data15", data15)
-   # data16 = [time_mid(final_time) , speed_round_fast(average_speed_out1) , speed_cross_slow(average_speed_cross1)]
-   # sum_.append(min(data16))
-   # print("Data16", data16)
-   # data17 = [time_mid(final_time) , speed_round_fast(average_speed_out1) , speed_cross_mid(average_speed_cross1)]
-   # sum_.append(min(data17))
-   # print("Data17", data17)
-   # data18 = [time_mid(final_time) , speed_round_fast(average_speed_out1) , speed_cross_fast(average_speed_cross1)]
-   # sum_.append(min(data18))
-   # print("Data18", data18)
-   # data19 = [time_mid(final_time) , speed_round_slow(average_speed_out1) , speed_cross_slow(average_speed_cross1)]
-   # sum_.append(min(data19))
-   # print("Data19", data19)
-   # data20 = [time_mid(final_time) , speed_round_slow(average_speed_out1) , speed_cross_mid(average_speed_cross1)]
-   # sum_.append(min(data20))
-   # print("Data20", data20)
-   # data21 = [time_mid(final_time) , speed_round_slow(average_speed_out1) , speed_cross_fast(average_speed_cross1)]
-   # sum_.append(min(data21))
-   # print("Data21", data21)
-   # data22 = [time_mid(final_time) , speed_round_mid(average_speed_out1) , speed_cross_slow(average_speed_cross1)]
-   # sum_.append(min(data22))
-   # print("Data22", data22)
-   # data23 = [time_mid(final_time) , speed_round_mid(average_speed_out1) , speed_cross_mid(average_speed_cross1)]
-   # sum_.append(min(data23))
-   # print("Data23", data23)
-   # data24 = [time_mid(final_time) , speed_round_mid(average_speed_out1) , speed_cross_fast(average_speed_cross1)]
-   # sum_.append(min(data24))
-   # print("Data24", data24)
-   # data25 = [time_mid(final_time) , speed_round_fast(average_speed_out1) , speed_cross_slow(average_speed_cross1)]
-   # sum_.append(min(data25))
-   # print("Data25", data25)
-   # data26 = [time_mid(final_time) , speed_round_fast(average_speed_out1) , speed_cross_mid(average_speed_cross1)]
-   # sum_.append(min(data26))
-   # print("Data26", data26)
-   # data27 = [time_mid(final_time) , speed_round_fast(average_speed_out1) , speed_cross_fast(average_speed_cross1)]
-   # sum_.append(min(data27))
-
-   data1 = [time_low(final_time), speed_round_slow(average_speed_out1)]
-   sum_.append(min(data1))
-   print("Data1", data1)
-   data2 = [time_low(final_time), speed_round_mid(average_speed_out1)]
-   sum_.append(min(data2))
-   print("Data2", data2)
-   data3 = [time_low(final_time), speed_round_fast(average_speed_out1)]
-   sum_.append(min(data3))
-   print("Data3", data3)
-
-   data4 = [time_mid(final_time), speed_round_slow(average_speed_out1)]
-   sum_.append(min(data4))
-   print("Data4", data4)
-   data5 = [time_mid(final_time), speed_round_mid(average_speed_out1)]
-   sum_.append(min(data5))
-   print("Data5", data5)
-   data6 = [time_mid(final_time), speed_round_fast(average_speed_out1)]
-   sum_.append(min(data6))
-   print("Data6", data6)
-
-   data7 = [time_high(final_time), speed_round_slow(average_speed_out1)]
-   sum_.append(min(data7))
-   print("Data7", data7)
-   data8 = [time_high(final_time), speed_round_mid(average_speed_out1)]
-   sum_.append(min(data8))
-   print("Data8", data8)
-   data9 = [time_high(final_time), speed_round_fast(average_speed_out1)]
-   sum_.append(min(data9))
-   print("Data9", data9)
    
-   # aggressive(1)
-
-   # print(sum_)
-   
+   # 9 rule based for testing
    out1 = test_cautious(sum_[0])
    out2 = test_cautious(sum_[1])   
    out3 = test_aggressive(sum_[2])
-   out4 = test_calmly(sum_[3])
-   out5 = test_cautious(sum_[4])
+
+   out4 = test_cautious(sum_[3])   
+   out5 = test_cautious(sum_[4])   
    out6 = test_aggressive(sum_[5])
-   out7 = test_calmly(sum_[6])
-   out8 = test_cautious(sum_[7])
+
+   out7 = test_aggressive(sum_[6])
+   out8 = test_aggressive(sum_[7])
    out9 = test_aggressive(sum_[8])
+
+   out10 = test_calmly(sum_[9])
+   out11 = test_calmly(sum_[10])
+   out12 = test_aggressive(sum_[11])
+
+   out13 = test_calmly(sum_[12])
+   out14 = test_cautious(sum_[13])
+   out15 = test_aggressive(sum_[14])
+
+   out16 = test_cautious(sum_[15])
+   out17 = test_cautious(sum_[16])
+   out18 = test_aggressive(sum_[17])
+
+   out19 = test_calmly(sum_[18])
+   out20 = test_calmly(sum_[19])
+   out21 = test_aggressive(sum_[20])
+
+   out22 = test_calmly(sum_[21])
+   out23 = test_cautious(sum_[22])
+   out24 = test_aggressive(sum_[23])
+
+   out25 = test_aggressive(sum_[24])
+   out26 = test_aggressive(sum_[25])
+   out27 = test_aggressive(sum_[26])
+
 
    find_max = []
    for i in range(100):
-      test = max(out1[i], out2[i], out3[i], out4[i], out5[i], out6[i], out7[i], out8[i], out9[i])
+      # test = max(out1[i], out2[i], out3[i], out4[i], out5[i], out6[i], out7[i], out8[i], out9[i])
       # print(test)
-      find_max.append(max(out1[i], out2[i], out3[i], out4[i], out5[i], out6[i], out7[i], out8[i], out9[i]))
-   print("Max", find_max)
+      find_max.append(max(out1[i], out2[i], out3[i], out4[i], out5[i], out6[i], out7[i], out8[i], out9[i], out10[i], out11[i], out12[i], out13[i], out14[i], out15[i], out16[i], out17[i], out18[i], out19[i], out20[i], out21[i], out22[i], out23[i], out24[i], out25[i], out26[i], out27[i]))
+      #print("Max:", find_max)
 
-# cog
-   # sum_xi = []
-   cog = sum(find_max)/sum(list(range(len(find_max))))
+   # out = []
+   # for i in range(27):
+   #    out[i] = test_aggressive[sum_[i]]
+   
+   # ยังทำไม่เสร็จ
+   # find_max = []
+   # for i in range(27):
+   #    for j in range(100):
+   #       find_max.append(max(out[i][j], out[i][i], out3[i], out4[i], out5[i], out6[i], out7[i], out8[i], out9[i], out10[i], out11[i], out12[i], out13[i], out14[i], out15[i], out16[i], out17[i], out18[i], out19[i], out20[i], out21[i], out22[i], out23[i], out24[i], out25[i], out26[i], out27[i]))
+   
+
+   # find cog 
+   sum_xi_i = []
+   sum_xi = []
+   
+   for i in range(len(find_max)):
+      sum_xi_i.append(find_max[i]*i)
+      sum_xi.append(find_max[i])
+   
+   cog = sum(sum_xi_i)/(sum(sum_xi)*100)
    print("Cog = ", cog)
+   return cog
    #result = max(sum_)
    # result = data1 or data2 or data3 or data4 or data5 or data6 or data7 or data8 or data9 or data10 or data11 or data12 or data13 or data14 or data15 or data16 or data17 or data18 or data19 or data20 or data21 or data22 or data23 or data24 or data25 or data26 or data27
 
 # ---------------------------------------------------------------- Graph functions ----------------------------------------------------------------
 
 def test_aggressive(in_mf):
-   print("in_mf =",in_mf)
    # aggressive_list = []
    aggressive_list = list(range(0,100))
    point = [0,1,40,0]
@@ -344,14 +386,16 @@ def speed_cross_fast(data):
    result = trapmf(data, points)
    return result
 
+# ---------------------------------------------------------------- Classify Data --------------------------------
+
 def sum_speed(df):
    sum_speed = 0
    count = 0
 
    for i in range(0, len(df["Speed"])):
-      passed_roundabout = df["Passed Circus"]
+      passed_roundabout = df["Circus entry"]
       speed = df["Speed"]
-      if (passed_roundabout[i] == 1.1) or (passed_roundabout[i] == 2.1) or (passed_roundabout[i] == 3.1) or (passed_roundabout[i] == 4.1):
+      if (passed_roundabout[i] == 1) or (passed_roundabout[i] == 2) or (passed_roundabout[i] == 3) or (passed_roundabout[i] == 4) or (passed_roundabout[i] == 5) or (passed_roundabout[i] == 6 ) or (passed_roundabout[i] == 7) or (passed_roundabout[i] == 8) or (passed_roundabout[i] == 9) or (passed_roundabout[i] == 10):
          sum_speed += speed[i]
          count += 1
    
@@ -362,9 +406,9 @@ def sum_speed_cross(df):
    count = 0
 
    for i in range(0, len(df["Speed"])):
-      passed_roundabout = df["Passed Crosswalk"]
+      passed_cross = df["Crosswalk entry"]
       speed = df["Speed"]
-      if (passed_roundabout[i] == 1) or (passed_roundabout[i] == 2) or (passed_roundabout[i] == 3):
+      if (passed_cross[i] == 1) or (passed_cross[i] == 2) or (passed_cross[i] == 3) or (passed_cross[i] == 4) or (passed_cross[i] == 5) or (passed_cross[i] == 6):
          sum_speed += speed[i]
          count += 1
    
