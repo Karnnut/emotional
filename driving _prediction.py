@@ -1,8 +1,8 @@
-# import pandas as pd
+import pandas as pd
 # print(pd.__version__)
 
 def main():
-   df = pd.read_csv("data.csv")
+   df = pd.read_csv("cautious02.csv")
 
    # Calculate Speed out the roundabout
    average_speed_out = sum_speed(df)
@@ -66,9 +66,6 @@ def getYIntercept(x1, y1, x2, y2):
 
 def result_and(final_time, average_speed_out1, average_speed_cross1):
    sum_ = []
-   print(final_time)
-   print(average_speed_out1)
-   print(average_speed_cross1)
    data1 = [time_low(final_time), speed_round_slow(average_speed_out1), speed_cross_slow(average_speed_cross1)]
    sum_.append(min(data1))
    # print("Data1", data1)
@@ -152,36 +149,6 @@ def result_and(final_time, average_speed_out1, average_speed_cross1):
    #print("Data26", data26)
    data27 = [time_mid(final_time) , speed_round_fast(average_speed_out1) , speed_cross_fast(average_speed_cross1)]
    sum_.append(min(data27))
-
-   # data1 = [time_low(final_time), speed_round_slow(average_speed_out1)]
-   # sum_.append(min(data1))
-   # print("Data1", data1)
-   # data2 = [time_low(final_time), speed_round_mid(average_speed_out1)]
-   # sum_.append(min(data2))
-   # print("Data2", data2)
-   # data3 = [time_low(final_time), speed_round_fast(average_speed_out1)]
-   # sum_.append(min(data3))
-   # print("Data3", data3)
-
-   # data4 = [time_mid(final_time), speed_round_slow(average_speed_out1)]
-   # sum_.append(min(data4))
-   # print("Data4", data4)
-   # data5 = [time_mid(final_time), speed_round_mid(average_speed_out1)]
-   # sum_.append(min(data5))
-   # print("Data5", data5)
-   # data6 = [time_mid(final_time), speed_round_fast(average_speed_out1)]
-   # sum_.append(min(data6))
-   # print("Data6", data6)
-
-   # data7 = [time_high(final_time), speed_round_slow(average_speed_out1)]
-   # sum_.append(min(data7))
-   # print("Data7", data7)
-   # data8 = [time_high(final_time), speed_round_mid(average_speed_out1)]
-   # sum_.append(min(data8))
-   # print("Data8", data8)
-   # data9 = [time_high(final_time), speed_round_fast(average_speed_out1)]
-   # sum_.append(min(data9))
-   # print("Data9", data9)
    
    # 9 rule based for testing
    out1 = test_cautious(sum_[0])
@@ -400,6 +367,20 @@ def sum_speed(df):
          count += 1
    
    return sum_speed, count
+
+def sum_speed_in(df):
+   sum_speed = 0
+   count = 0
+
+   for i in range(0, len(df["Speed"])):
+      passed_roundabout = df["Circus entry"]
+      speed = df["Speed"]
+      if (passed_roundabout[i] == 1) or (passed_roundabout[i] == 2) or (passed_roundabout[i] == 3) or (passed_roundabout[i] == 4) or (passed_roundabout[i] == 5) or (passed_roundabout[i] == 6 ) or (passed_roundabout[i] == 7) or (passed_roundabout[i] == 8) or (passed_roundabout[i] == 9) or (passed_roundabout[i] == 10):
+         sum_speed += speed[i]
+         count += 1
+   
+   return sum_speed, count
+
 
 def sum_speed_cross(df):
    sum_speed = 0
