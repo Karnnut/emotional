@@ -21,9 +21,9 @@ def main():
         average_speed_cross1 = average_speed_cross[0] / average_speed_cross[1]
         aggressive_speed_cross_list.append(average_speed_cross1)
 
-    print(aggressive_speed_cross_list)
-    print(aggressive_speed_out_list)
-    print(aggressive_time)
+    # print(aggressive_speed_cross_list)
+    # print(aggressive_speed_out_list)
+    # print(aggressive_time)
 
     directory_cautious= '/Users/pinto/Desktop/Arbeit/emotional/Cautious'
     cautious_time = []
@@ -41,9 +41,9 @@ def main():
         average_speed_cross1 = average_speed_cross[0] / average_speed_cross[1]
         cautious_speed_cross_list.append(average_speed_cross1)
 
-    print(cautious_speed_cross_list)
-    print(cautious_speed_out_list)
-    print(cautious_time)
+    # print(cautious_speed_cross_list)
+    # print(cautious_speed_out_list)
+    # print(cautious_time)
 
     directory_calmly= '/Users/pinto/Desktop/Arbeit/emotional/Calmly'
     calmly_time = []
@@ -61,9 +61,9 @@ def main():
         average_speed_cross1 = average_speed_cross[0] / average_speed_cross[1]
         calmly_speed_cross_list.append(average_speed_cross1)
 
-    print(calmly_speed_cross_list)
-    print(calmly_speed_out_list)
-    print(calmly_time)
+    # print(calmly_speed_cross_list)
+    # print(calmly_speed_out_list)
+    # print(calmly_time)
 
     average_aggressive = find_average(aggressive_time)
     average_cautious = find_average(cautious_time)
@@ -94,32 +94,27 @@ def main():
     print()
 
 
-    aggressive_data = np.array([aggressive_speed_cross_list, aggressive_speed_out_list, aggressive_time]).T
-    cautious_data = np.array([cautious_speed_cross_list, cautious_speed_out_list, cautious_time]).T
-    calmly_data = np.array([calmly_speed_cross_list, calmly_speed_out_list, calmly_time]).T
-# Create a feature matrix (X) with your average values
-    X = [
-        [average_aggressive, average_speed_out_aggressive, average_speed_cross_aggressive],
-        [average_cautious, average_speed_out_cautious, average_speed_cross_cautious],
-        [average_calmly, average_speed_out_calmly, average_speed_cross_calmly]
-        # Add more rows for your data
-    ]
+    data = {
+    'average_aggressive': average_aggressive,
+    'average_cautious': average_cautious,
+    'average_calmly': average_calmly,
+    'average_speed_out_aggressive': average_speed_out_aggressive,
+    'average_speed_out_cautious': average_speed_out_cautious,
+    'average_speed_out_calmly': average_speed_out_calmly,
+    'average_speed_cross_aggressive': average_speed_cross_aggressive,
+    'average_speed_cross_cautious': average_speed_cross_cautious,
+    'average_speed_cross_calmly': average_speed_cross_calmly
+}
 
-    # Choose the number of clusters (k)
-    k = 3
+    df = pd.DataFrame(data)
+    scaler = StandardScaler()
+    scaled_data = scaler.fit_transform(df)
 
-    # Create a KMeans instance
-    kmeans = KMeans(n_clusters=k)
-
-    # Fit the model to your data
-    kmeans.fit(X)
-
-    # Get cluster labels for each data point
-    cluster_labels = kmeans.labels_
-
-    # The cluster labels will indicate which cluster each data point belongs to
-    print(cluster_labels)
-
+    knn = KNeighborsClassifier(n_neighbors=5)
+    knn.fit(scaled_data)
+    predicted_labels = knn.predict(scaled_data)
+    df['predicted_label'] = predicted_labels
+    print(df)
 
 
     #---------------------------------------------------------------- Start a Speed Checker --------------------------------

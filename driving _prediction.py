@@ -2,7 +2,9 @@ import pandas as pd
 # print(pd.__version__)
 
 def main():
-   df = pd.read_csv("cautious02.csv")
+   # df = pd.read_csv("Cautious/cautious02.csv")
+   # df = pd.read_csv("Calmly/calmly03.csv")
+   # df = pd.read_csv("Aggressive/aggressive02.csv")
 
    # Calculate Speed out the roundabout
    average_speed_out = sum_speed(df)
@@ -35,9 +37,9 @@ def main():
 # ---------------------------------------------------------------- Start Results --------------------------------
 
 def personality_detection(data):
-   if data <= 0.43:
+   if data <= 0.4:
       result = "Aggressive"
-   elif data >= 0.67:
+   elif data >= 0.6:
       result = "Calmly"
    else:
       result = "Cautious"
@@ -281,7 +283,7 @@ def test_calmly(in_mf):
 #---------------------------------------------------------------- Start Time Detection --------------------------------
 
 def time_low(data):
-   points = [-100, 0, 120, 300]
+   points = [-186, 1, 180, 250]
    if (data <= 120):
       result = 1
    elif (data > 300):
@@ -291,7 +293,7 @@ def time_low(data):
    return result
 
 def time_mid(data):
-   points = [120, 300, 480]
+   points = [190, 230, 380]
    if (data == 300):
       result = 1
    else:
@@ -299,7 +301,7 @@ def time_mid(data):
    return result
       
 def time_high(data):
-   points = [300, 500, 1000]
+   points = [250, 300, 10000]
    if (data >= 500):
       result = 1
    else:
@@ -308,7 +310,7 @@ def time_high(data):
 
 # ---------------------------------------------------------------- Start Speed_roundabout ----------------------------------------------------------------
 def speed_round_slow(data):
-   points = [-1000, 0, 25]
+   points = [-1000, 9, 15]
    if (data <= 0):
       result = 1
    else:
@@ -316,7 +318,7 @@ def speed_round_slow(data):
    return result
 
 def speed_round_mid(data):
-   points = [15, 25, 35]
+   points = [8, 15, 30]
    # if (data == 25):
    #    result = 1
    # else:
@@ -324,7 +326,7 @@ def speed_round_mid(data):
    return result
 
 def speed_round_fast(data):
-   points = [25, 50, 1000]
+   points = [15, 1000, 1000]
    # if (data >= 50):
    #    result = 1
    # else:
@@ -334,7 +336,7 @@ def speed_round_fast(data):
 # ---------------------------------------------------------------- Start Speed Crosswalk----------------------------------------------------------------
 
 def speed_cross_slow(data):
-   points = [-17, 0, 10, 25]
+   points = [-1000, 0, 10, 20]
    if data < 10:
       result = 1
    elif data >25:
@@ -344,12 +346,12 @@ def speed_cross_slow(data):
    return result      
 
 def speed_cross_mid(data):
-   points = [15, 25, 35]
+   points = [9, 20, 30]
    result = trimf(data, points)
    return result
 
 def speed_cross_fast(data):
-   points = [25, 47, 100, 100]
+   points = [20, 42, 1000, 1000]
    result = trapmf(data, points)
    return result
 
