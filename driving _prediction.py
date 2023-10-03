@@ -4,14 +4,19 @@ import pandas as pd
 def main():
    # df = pd.read_csv("Cautious/cautious08.csv")
    # df = pd.read_csv("Calmly/calmly08.csv")
-   df = pd.read_csv("Aggressive/aggressive09.csv")
+   df = pd.read_csv("data.csv")
+
+   last_distance = df.iloc[-1]
+   final_distance = last_distance["Distance"]
+
+   if final_distance != 100:
+      return "Nomove", 0
+   # Calculate Speed all
+   average_speed_all = sum(df["Speed"]) / len(df["Speed"])
 
    # Calculate Speed out the roundabout
    average_speed_out = sum_speed(df)
    average_speed_out1 = average_speed_out[0] / average_speed_out[1]
-
-   # Calculate Speed all
-   average_speed_all = sum(df["Speed"]) / len(df["Speed"])
 
    # Calculate Speed before enter crosswalk
    average_speed_cross = sum_speed_cross(df)
